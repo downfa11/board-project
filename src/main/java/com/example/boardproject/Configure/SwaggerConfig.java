@@ -1,4 +1,4 @@
-package com.example.boardproject;
+package com.example.boardproject.Configure;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
