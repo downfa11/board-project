@@ -3,6 +3,7 @@ package com.example.boardproject.DTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.catalina.User;
 
 import java.util.Date;
 import java.util.function.BinaryOperator;
@@ -12,6 +13,9 @@ import java.util.function.BinaryOperator;
 @ToString
 public class UserDTO {
 
+    public static boolean hasNullDataBeforeRegister(UserDTO userDTO){
+        return userDTO.getUserId()==null || userDTO.getPassword()==null || userDTO.getNickName()==null;
+    }
     public enum Status{
         DEFAULT,ADMIN,DELETED
     }
