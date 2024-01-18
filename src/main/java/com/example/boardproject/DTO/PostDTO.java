@@ -3,6 +3,7 @@ package com.example.boardproject.DTO;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +22,5 @@ public class PostDTO {
     private int categoryId;
     private int userId;
     private int fileId;
+    private List<TagDTO> tagDTOList;
 }

@@ -39,6 +39,25 @@
 
     </select>
 
+    <select id="getPostByTag" resultType="com.example.boardproject.DTO.request.PostSearchRequest">
+        SELECT p.id,
+        p.name,
+        p.isAdmin,
+        p.content,
+        p.createAt,
+        p.views,
+        p.categoryId,
+        p.userId,
+        p.fileId,
+        p.updateAt
+        FROM post p
+            JOIN posttag pt ON p.id = pt.postId
+            JOIN tag t ON pt.tagId = t.id
+        WHERE t.name = #{tagName}
+
+
+    </select>
+
 
 
 </mapper>

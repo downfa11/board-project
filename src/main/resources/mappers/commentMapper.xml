@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.boardproject.mapper.CommentMapper">
+
+    <insert id="register" parameterType="com.example.boardproject.DTO.CommentDTO">
+        INSERT INTO `comment`
+        (`postId`,
+         `content`,
+         `commentId`)
+        VALUES (#{postId},
+                #{content},
+                #{commentId})
+    </insert>
+
+    <select id="selectMyComment" resultType="com.example.boardproject.DTO.CommentDTO">
+        SELECT `id`,
+               `postId`,
+               `content`,
+               `commentId`,
+        FROM `comment`
+        WHERE userId = #{userId}
+    </select>
+
+    <update id="updateComment" parameterType="com.example.boardproject.DTO.CommentDTO">
+        UPDATE comment
+        SET content = #{content},
+            commentId = #{commentId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteComment" >
+        DELETE FROM comment
+        WHERE id = #{commentId}
+    </delete>
+
+</mapper>

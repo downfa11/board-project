@@ -1,8 +1,10 @@
 package com.example.boardproject.Controller;
 
 import com.example.boardproject.AOP.LoginCheck;
+import com.example.boardproject.DTO.CommentDTO;
 import com.example.boardproject.DTO.PostDTO;
 import com.example.boardproject.DTO.Response.CommonResponse;
+import com.example.boardproject.DTO.TagDTO;
 import com.example.boardproject.DTO.UserDTO;
 import com.example.boardproject.Service.PostService;
 import com.example.boardproject.Service.PostServiceImplement;
@@ -10,6 +12,7 @@ import com.example.boardproject.Service.UserServiceImplement;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Delete;
@@ -17,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.stream.events.Comment;
 import java.util.Date;
 import java.util.List;
 
@@ -82,6 +86,73 @@ public class PostController {
         return ResponseEntity.ok(commonResponse);
     }
 
+    @GetMapping("comments")
+    @ResponseStatus(HttpStatus.CREATED)
+    @LoginCheck(type= LoginCheck.userType.USER)
+    public ResponseEntity<CommonResponse<CommentDTO>> registerPostComment(String accountId,
+                                                                          @RequestBody CommentDTO commentDTO){
+        postService.registerComment(commentDTO);
+        CommonResponse commonResponse = new CommonResponse<>(HttpStatus.OK, "SUCCESS", "registerPostComment", commentDTO);
+        return ResponseEntity.ok(commonResponse);
+    }
+
+    @PatchMapping("comments/{commentId}")
+    @LoginCheck(type= LoginCheck.userType.USER)
+    public ResponseEntity<CommonResponse<CommentDTO>> updatePostComment(String accountId,
+                                                                          @PathVariable(name="commentId") int commentId,
+                                                                          @RequestBody CommentDTO commentDTO){
+        UserDTO memberinfo = userService.getUserInfo(accountId);
+        if(memberinfo!=null)
+            postService.updateComment(commentDTO);
+        postService.registerComment(commentDTO);
+        CommonResponse commonResponse = new CommonResponse<>(HttpStatus.OK, "SUCCESS", "updatePostComment", commentDTO);
+        return ResponseEntity.ok(commonResponse);
+    }
+
+    @DeleteMapping("comments/{commentId}")
+    @LoginCheck(type= LoginCheck.userType.USER)
+    public ResponseEntity<CommonResponse<CommentDTO>> deletePostComment(String accountId,
+                                                                        @PathVariable(name="commentId") int commentId){
+        UserDTO memberinfo = userService.getUserInfo(accountId);
+        if(memberinfo!=null)
+            postService.deleteComment(memberinfo.getId(),commentId);
+        CommonResponse commonResponse = new CommonResponse<>(HttpStatus.OK, "SUCCESS", "deletePostComment", commentId);
+        return ResponseEntity.ok(commonResponse);
+    }
+
+    @GetMapping("tags")
+    @ResponseStatus(HttpStatus.CREATED)
+    @LoginCheck(type= LoginCheck.userType.USER)
+    public ResponseEntity<CommonResponse<TagDTO>> registerPostTag(String accountId,
+                                                                          @RequestBody TagDTO tagDTO){
+        postService.registerTag(tagDTO);
+        CommonResponse commonResponse = new CommonResponse<>(HttpStatus.OK, "SUCCESS", "registerPostTag", tagDTO);
+        return ResponseEntity.ok(commonResponse);
+    }
+
+    @PatchMapping("tags/{tagId}")
+    @LoginCheck(type= LoginCheck.userType.USER)
+    public ResponseEntity<CommonResponse<TagDTO>> updatePostTag(String accountId,
+                                                                        @PathVariable(name="tagId") int tagId,
+                                                                        @RequestBody TagDTO tagDTO){
+        UserDTO memberinfo = userService.getUserInfo(accountId);
+        if(memberinfo!=null)
+            postService.updateTag(tagDTO);
+        postService.registerTag(tagDTO);
+        CommonResponse commonResponse = new CommonResponse<>(HttpStatus.OK, "SUCCESS", "updatePostTag", tagDTO);
+        return ResponseEntity.ok(commonResponse);
+    }
+
+    @DeleteMapping("tags/{tagId}")
+    @LoginCheck(type= LoginCheck.userType.USER)
+    public ResponseEntity<CommonResponse<TagDTO>> deletePostTag(String accountId,
+                                                                @PathVariable(name="tagId") int tagId){
+        UserDTO memberinfo = userService.getUserInfo(accountId);
+        if(memberinfo!=null)
+            postService.deleteTag(memberinfo.getId(),tagId);
+        CommonResponse commonResponse = new CommonResponse<>(HttpStatus.OK, "SUCCESS", "deletePostTag", tagId);
+        return ResponseEntity.ok(commonResponse);
+    }
 
     @Getter
     @AllArgsConstructor

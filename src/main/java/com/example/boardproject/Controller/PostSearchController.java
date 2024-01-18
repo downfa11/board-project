@@ -24,7 +24,11 @@ public class PostSearchController {
         return new PostSearchResponse(postDTOList);
     }
 
-
+    @GetMapping
+    public PostSearchResponse searchByTagName(String tagName){
+        List<PostDTO> postDTOList = postSearchService.getPostsByTag(tagName);
+        return new PostSearchResponse(postDTOList);
+    }
 
 
     @Getter

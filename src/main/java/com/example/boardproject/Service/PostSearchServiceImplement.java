@@ -28,4 +28,16 @@ public class PostSearchServiceImplement implements PostSearchService{
         }
         return postDTOList;
     }
+
+    @Override
+    @Cacheable(value="getPosts",key="'getPosts'+ #postSearchRequest.getName() + #postSearchRequest.getCategoryId()")
+    public List<PostDTO> getPostsByTag(String tagName) {
+        List<PostDTO> postDTOList = null;
+        try{
+            postDTOList = postSearchMapper.getPostByTag(tagName);
+        }catch ( RuntimeException e){
+            log.error("selectPosts error: ",e.getMessage());
+        }
+        return postDTOList;
+    }
 }

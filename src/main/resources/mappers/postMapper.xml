@@ -6,7 +6,17 @@
 <mapper namespace="com.example.boardproject.mapper.PostMapper">
 
     <insert id="register" parameterType="com.example.boardproject.DTO.PostDTO">
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         INSERT INTO post (name, isAdmin, content, createAt, views, categoryId, userId, fileId, updateAt )
+        VALUES (#{name}, #{isAdmin}, #{content}, #{createAt}, #{views}, #{categoryId}, #{userId}, #{fileId}, #{updateAt})
+    </insert>
+    <insert id="register" parameterType="com.example.boardproject.DTO.PostDTO">
+<selectKey resultType="int" keyProperty="id" order="AFTER">
+    SELECT LAST_INSERT_ID()
+</selectKey>
+INSERT INTO post (name, isAdmin, content, createAt, views, categoryId, userId, fileId, updateAt )
         VALUES (#{name}, #{isAdmin}, #{content}, #{createAt}, #{views}, #{categoryId}, #{userId}, #{fileId}, #{updateAt})
     </insert>
 
