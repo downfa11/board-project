@@ -15,6 +15,10 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+
+	all {
+		exclude group: 'org.springframework.boot',module:'spring-boot-start-logging'
+	}
 }
 
 repositories {
@@ -25,9 +29,17 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-aop:3.1.2'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.1'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis:3.1.0'
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	runtimeOnly("com.mysql:mysql-connector-j")
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 }
 
 tasks.named('bootBuildImage') {

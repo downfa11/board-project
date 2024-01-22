@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.boardproject.Mapper.PostSearchMapper">
+
+    <select id="selectPosts" resultType="com.example.boardproject.DTO.Request.PostSearchRequest">
+        SELECT `id`,
+               `name`,
+               `isAdmin`,
+               `content`,
+               `createAt`,
+               `views`,
+               `categoryId`,
+               `userId`,
+               `fileId`,
+               `updateAt`
+        FROM `post`
+        WHERE 1=1
+        <if test="name != null and name !=''">
+            AND name LIKE CONCAT(#{name},'$')
+        </if>
+        <if test="content != null and content !=''">
+            AND content LIKE CONCAT(#{content},'$')
+        </if>
+        <if test="categoryId != 0">
+            AND categoryId = #{categoryId}
+        </if>
+        <if test="sortStatus.toString() == 'NEWEST">
+            ORDER BY createAt DESC
+        </if>
+        <if test="sortStatus.toString() == 'OLDEST">
+            ORDER BY createAt ASC
+        </if>
+        <if test="sortStatus.toString() == 'CATEGORIES">
+            ORDER BY categoryId
+        </if>
+
+    </select>
+
+    <select id="getPostByTag" resultType="com.example.boardproject.DTO.Request.PostSearchRequest">
+        SELECT p.id,
+        p.name,
+        p.isAdmin,
+        p.content,
+        p.createAt,
+        p.views,
+        p.categoryId,
+        p.userId,
+        p.fileId,
+        p.updateAt
+        FROM post p
+            JOIN posttag pt ON p.id = pt.postId
+            JOIN tag t ON pt.tagId = t.id
+        WHERE t.name = #{tagName}
+
+
+    </select>
+
+
+
+</mapper>
