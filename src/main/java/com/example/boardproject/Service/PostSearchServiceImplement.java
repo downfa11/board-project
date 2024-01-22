@@ -1,6 +1,5 @@
 package com.example.boardproject.Service;
 
-import com.example.boardproject.AOP.LoginCheck;
 import com.example.boardproject.DTO.PostDTO;
 import com.example.boardproject.DTO.Request.PostSearchRequest;
 import com.example.boardproject.Mapper.PostSearchMapper;

@@ -5,18 +5,18 @@
 
 <mapper namespace="com.example.boardproject.Mapper.UserProfileMapper">
 
-    <select id="getUserProfile" resultType="com.example.boardproject.dto.UserDTO">
-        SELECT id, userId, password, nickName, createTime, isWithDraw, status
+    <select id="getUserProfile" resultType="com.example.boardproject.DTO.UserDTO">
+        SELECT id, userId, password, nickName, createAt, isWithDraw, status
         FROM user
         WHERE id = #{id}
     </select>
 
-    <insert id="insertUserProfile" parameterType="com.example.boardproject.dto.UserDTO">
-        INSERT INTO user (userId, passWord, nickName, isWithDraw, status, isAdmin)
+    <insert id="insertUserProfile" parameterType="com.example.boardproject.DTO.UserDTO">
+        INSERT INTO user (userId, password, nickName, isWithDraw, status, isAdmin)
         VALUES (#{userId}, #{password}, #{nickName}, #{isWithDraw}, #{status}, #{isAdmin})
     </insert>
 
-    <update id="updateUserProfile" parameterType="com.example.boardproject.dto.UserDTO">
+    <update id="updateUserProfile" parameterType="com.example.boardproject.DTO.UserDTO">
         UPDATE user
         SET password=#{password},
             nickName=#{nickName},
@@ -31,36 +31,36 @@
         WHERE userId = #{id}
     </delete>
 
-    <insert id="register" parameterType="com.example.boardproject.dto.UserDTO">
-        INSERT INTO user (userId, passWord, nickName, createTime, isWithDraw, status)
-        VALUES (#{userId}, #{password}, #{nickName}, #{createTime}, #{isWithDraw}, #{status})
+    <insert id="register" parameterType="com.example.boardproject.DTO.UserDTO">
+        INSERT INTO user (userId, password, nickName, createAt, isWithDraw, status)
+        VALUES (#{userId}, #{password}, #{nickName}, #{createAt}, #{isWithDraw}, #{status})
     </insert>
 
-    <select id="findByIdAndPassword" resultType="com.example.boardproject.dto.UserDTO">
+    <select id="findByIdAndPassword" resultType="com.example.boardproject.DTO.UserDTO">
         SELECT id,
                userId,
-               passWord,
+               password,
                nickName,
-               createTime,
+               createAt,
                isWithDraw,
                status
         FROM user
         WHERE id = #{id}
-          AND passWord = #{password}
+          AND password = #{password}
           AND status != 'DELETE'
     </select>
 
-    <select id="findByUserIdAndPassword" resultType="com.example.boardproject.dto.UserDTO">
+    <select id="findByUserIdAndPassword" resultType="com.example.boardproject.DTO.UserDTO">
         SELECT id,
                userId,
-               passWord,
+               password,
                nickName,
-               createTime,
+               createAt,
                isWithDraw,
                status
         FROM user
         WHERE userId = #{userId}
-          AND passWord = #{password}
+          AND password = #{password}
           AND status != 'DELETE'
     </select>
 
@@ -70,9 +70,9 @@
         WHERE userId = #{userId}
     </select>
 
-    <update id="updatePassword" parameterType="com.example.boardproject.dto.UserDTO">
+    <update id="updatePassword" parameterType="com.example.boardproject.DTO.UserDTO">
         UPDATE user
-        SET passWord = #{password}
+        SET password = #{password}
         WHERE userId = #{userId}
     </update>
 

@@ -6,21 +6,15 @@ import com.example.boardproject.DTO.PostDTO;
 import com.example.boardproject.DTO.Response.CommonResponse;
 import com.example.boardproject.DTO.TagDTO;
 import com.example.boardproject.DTO.UserDTO;
-import com.example.boardproject.Service.PostService;
 import com.example.boardproject.Service.PostServiceImplement;
 import com.example.boardproject.Service.UserServiceImplement;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
-import org.apache.catalina.User;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.xml.stream.events.Comment;
 import java.util.Date;
 import java.util.List;
 

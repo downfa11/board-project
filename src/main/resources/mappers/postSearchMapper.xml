@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.boardproject.mapper.PostSearchMapper">
+<mapper namespace="com.example.boardproject.Mapper.PostSearchMapper">
 
-    <select id="selectPosts" resultType="com.example.boardproject.DTO.request.PostSearchRequest">
+    <select id="selectPosts" resultType="com.example.boardproject.DTO.Request.PostSearchRequest">
         SELECT `id`,
                `name`,
                `isAdmin`,
@@ -39,7 +39,7 @@
 
     </select>
 
-    <select id="getPostByTag" resultType="com.example.boardproject.DTO.request.PostSearchRequest">
+    <select id="getPostByTag" resultType="com.example.boardproject.DTO.Request.PostSearchRequest">
         SELECT p.id,
         p.name,
         p.isAdmin,

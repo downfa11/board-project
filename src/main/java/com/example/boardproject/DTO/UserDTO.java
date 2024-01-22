@@ -6,7 +6,6 @@ import lombok.ToString;
 import org.apache.catalina.User;
 
 import java.util.Date;
-import java.util.function.BinaryOperator;
 
 @Getter
 @Setter

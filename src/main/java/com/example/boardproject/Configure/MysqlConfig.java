@@ -9,7 +9,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = "com.example.boardproject.mapper")
+@MapperScan(basePackages = "com.example.boardproject")
 public class MysqlConfig {
 
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception{
@@ -17,9 +17,9 @@ public class MysqlConfig {
         sessionFactory.setDataSource(dataSource);
 
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sessionFactory.setMapperLocations(resolver.getResources("classpath.mappers/*.xml"));
+        sessionFactory.setMapperLocations(resolver.getResources("classpath:/mappers/*.xml"));
 
-        Resource mybatisConfig = new PathMatchingResourcePatternResolver().getResource("classpath.mybatis-configure.xml");
+        Resource mybatisConfig = new PathMatchingResourcePatternResolver().getResource("classpath:mybatis-configure.xml");
         sessionFactory.setConfigLocation(mybatisConfig);
 
         return sessionFactory.getObject();
